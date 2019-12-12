@@ -1,0 +1,15 @@
+.pageColor{
+    background-color: #CCD1D1;
+   
+   
+}
+
+.textTitleColor{
+    color: #fff;
+    background-color: #474747;
+    text-shadow: #fff 0 0 10px;
+}
+
+#card{
+    height: auto;
+}

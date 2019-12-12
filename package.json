@@ -1,0 +1,26 @@
+{
+  "name": "todo-jquery-training",
+  "version": "1.0.0",
+  "description": "TODO list",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FranciscoSosaUV/TODO-JQuery-Training.git"
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "Francisco Sosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FranciscoSosaUV/TODO-JQuery-Training/issues"
+  },
+  "homepage": "https://github.com/FranciscoSosaUV/TODO-JQuery-Training#readme",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1"
+  }
+}
