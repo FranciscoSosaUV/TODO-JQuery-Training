@@ -2,8 +2,6 @@
 // by Francisco Sosa
 //
 
-
-let elementsActives=1;
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 var dataBase = null;
 function startDB() {
@@ -35,7 +33,6 @@ function startDB() {
 
 //event add DB
 $('#btnAdd').click(function () {
-
     var active = dataBase.result;
     var data = active.transaction(["tasks"], "readwrite");
     var data_tasks = data.objectStore("tasks");
@@ -91,7 +88,7 @@ $('#btnClean').click(function () {
 })
 
 function loadTasks() {
-    elementsActives =1;
+    
     let active = dataBase.result;
     let data = active.transaction(['tasks'], 'readonly');
     let object = data.objectStore('tasks');
@@ -110,8 +107,6 @@ function loadTasks() {
         var outerHTML = '';
 
         for (var key in elements) {
-            elementsActives++;
-            console.log(elementsActives);
             outerHTML +=
                 "<div class='row container-fluid'>" +
                 "<div class = col-9>" +
@@ -123,8 +118,9 @@ function loadTasks() {
         elements = [];
 
         document.querySelector('#listTasks').innerHTML = outerHTML;
+        
     }
-    updateProgressBar();
+    updateProgressBar()
 }
 
 //load Task Comlete
@@ -155,7 +151,9 @@ function loadTasksComplete() {
         }
         elements = [];
         document.querySelector('#listComplete').innerHTML = outerHTML;
+        
     }
+    updateProgressBar()
 }
 
 
@@ -184,7 +182,6 @@ function deleteTask(id) {
     let object = data.objectStore('tasks');
     var request = object.delete(id);
     request.onsuccess = function () {
-        elementsActives--;
         var result = request.result;
         loadTasks();
         if (result != undefined) {
@@ -216,11 +213,50 @@ function deleteTaskComplete(id) {
 //control progressbar
 
 function updateProgressBar(){
-    var number = elementsActives;
-    console.log("numero :"+elementsActives)
-    let percent = 100 / number;
+    var ltasksComplete=[];
+    var ltasks=[];
+   
+    let active = dataBase.result;
+    let dataTasksComplete = active.transaction(['tasksComplete'], 'readwrite');
+    let completeTasks = dataTasksComplete.objectStore('tasksComplete');
+    
+    let dataTasks = active.transaction(['tasks'], 'readwrite');
+    let tasks = dataTasks.objectStore('tasks');
+    var request = tasks.getAll();
+    var request2 = completeTasks.getAll();
+
+
+    request.onsuccess = function () {
+         ltasks = request.result;
+        if (ltasks != undefined) {
+            //añadir a lista complete
+            console.log("tasks: ",ltasks.length);
+
+        }
+    }
+
+    request2.onsuccess = function () {
+         ltasksComplete = request2.result;
+        if (ltasksComplete != undefined) {
+            //añadir a lista complete
+            console.log("complete tasks: ",ltasksComplete.length);
+
+        }
+    if(ltasks.length!=NaN && ltasksComplete.length != NaN){
+    var totalTask = ltasks.length+ltasksComplete.length;
+    console.log("tareas totales: "+totalTask);
+    var number = (ltasksComplete.length*100)/totalTask; //promedio
+    console.log("porcentaje: "+number);
+    if(number !=0){
+    console.log("numero :"+number)
+    let percent = number;
     console.log(percent)
-    $("#progressBarTasks").css("width",percent);
+    $("#progressBarTasks").css("width",percent +"%");
+    }
+    else {$("#progressBarTasks").css("width",0);}
+
+    }
+}
     
        
         
