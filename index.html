@@ -12,12 +12,16 @@
 </head>
 
 <body onload = "startDB();">
+	
 	<div class="pageColor">
 		<h1 class="titleTodoList text-center textTitleColor">TO DO LIST</h1>
+		<div class="progress container" style="height: 10px;">
+			<div  id = "progressBarTasks"  class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
 
-		<div class="container-fluid text-center">
+		<div class="container text-center">
 			<div class="row">
-				<div class="card text-center col-md-6">
+				<div class="card text-center col-md-6" style="min-height: 700px;">
 
 					<div class="card-body">
 						<h4 class="card-title">TO DO</h4>
@@ -31,7 +35,8 @@
 							</div>
 
 						</div>
-						<ul class="list-group" id="listTasks"> </ul>
+						<p>Pending Tasks</p>
+						<ul class="list-group" id="listTasks">Pending Task</ul>
 					</div>
 				</div>
 				<div class="card text-center col-md-6">
@@ -44,13 +49,8 @@
 			</div>
 			
 			</div>
-			<footer>
-				<div class="progress">
-					<div  id = "progressBarTasks"  class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-				</div>
-
-				
-			</footer>
+			
+			
 		</div>
 	</div>
 

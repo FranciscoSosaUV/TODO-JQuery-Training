@@ -149,7 +149,7 @@ function loadTasksComplete() {
             outerHTML +=
                 "<div class='row container-fluid'>" +
                 "<div class = col-9>" +
-                "<li id='onlytask' class='list-group-item'><b>" + elements[key].task + "</b> " +
+                "<li id='onlytask' class='list-group-item list-group-item-success'><b>" + elements[key].task + "</b> " +
                 "</li></div> <div class = 'col-3'>" +
                 "<button type='button' onclick='deleteTaskComplete(" + elements[key].id + ")' class='btn btn-danger btn-sm'><i class='fas fa-trash'></i></button></div></div>"
         }
