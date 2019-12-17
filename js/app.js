@@ -1,6 +1,9 @@
 //app.js TODO APP
 // by Francisco Sosa
 //
+
+
+let elementsActives=1;
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 var dataBase = null;
 function startDB() {
@@ -21,6 +24,7 @@ function startDB() {
         console.log('Base de datos cargada correctamente');
         loadTasks();
         loadTasksComplete();
+    
     };
 
     dataBase.onerror = function (e) {
@@ -47,10 +51,10 @@ $('#btnAdd').click(function () {
         }
 
         data.oncomplete = function (e) {
-            console.log("added!")
+            console.log("added!");
             cleanField();
             loadTasks();
-            updateProgressBar();
+            
 
         }
     } else { alert("The field is empty"); }
@@ -87,6 +91,7 @@ $('#btnClean').click(function () {
 })
 
 function loadTasks() {
+    elementsActives =1;
     let active = dataBase.result;
     let data = active.transaction(['tasks'], 'readonly');
     let object = data.objectStore('tasks');
@@ -97,6 +102,7 @@ function loadTasks() {
             return;
         }
         elements.push(result.value);
+        
         result.continue();
 
     };
@@ -104,6 +110,8 @@ function loadTasks() {
         var outerHTML = '';
 
         for (var key in elements) {
+            elementsActives++;
+            console.log(elementsActives);
             outerHTML +=
                 "<div class='row container-fluid'>" +
                 "<div class = col-9>" +
@@ -116,6 +124,7 @@ function loadTasks() {
 
         document.querySelector('#listTasks').innerHTML = outerHTML;
     }
+    updateProgressBar();
 }
 
 //load Task Comlete
@@ -175,6 +184,7 @@ function deleteTask(id) {
     let object = data.objectStore('tasks');
     var request = object.delete(id);
     request.onsuccess = function () {
+        elementsActives--;
         var result = request.result;
         loadTasks();
         if (result != undefined) {
@@ -206,5 +216,14 @@ function deleteTaskComplete(id) {
 //control progressbar
 
 function updateProgressBar(){
-    $("#progressBarTasks").css('width: 80%') 
+    var number = elementsActives;
+    console.log("numero :"+elementsActives)
+    let percent = 100 / number;
+    console.log(percent)
+    $("#progressBarTasks").css("width",percent);
+    
+       
+        
+         
+    
 }
